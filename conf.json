@@ -1,0 +1,7 @@
+{
+    "file_path": "test",
+    "server_groups":[
+      {"group_1":["shvora.n","shvora.adm"]},
+      {"group_2":["shvora.n","shvora.adm"]}
+    ]
+  }
