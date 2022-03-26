@@ -1,24 +1,26 @@
-$conf = Get-Content -Path "./conf.json" | ConvertFrom-Json
-#$server_group = Read-Host -Prompt ""
-
+п»ї$conf = Get-Content -Path "./conf.json" | ConvertFrom-Json
+$path = $conf.file_path
+$server_groups = @{}
+$conf.server_groups[0].psobject.properties | Foreach { $server_groups[$_.Name] = $_.Value }
+$global:group_index = @{}
 
 function reload_service{
     [CmdletBinding()]
     param(
         [Parameter()]
-        [string] $Path,
+        [string] $path,
         
         [Parameter()]
-        [System.Array] $ServerNames
+        [System.Array] $server_names
     )
     
-    Write-Host "Имя сервера | Статус до выполнения | Результат выполнения"
-    foreach ($ServerName in $ServerNames){
-    Write-Host "$ServerName |  Запущен | Выполнено"   
+    Write-Host "РРјСЏ СЃРµСЂРІРµСЂР° | РЎС‚Р°С‚СѓСЃ РґРѕ РІС‹РїРѕР»РЅРµРЅРёСЏ | Р РµР·СѓР»СЊС‚Р°С‚ РІС‹РїРѕР»РЅРµРЅРёСЏ"
+    foreach ($server_name in $server_names){
+    Write-Host "$server_name |  Р—Р°РїСѓС‰РµРЅ | Р’С‹РїРѕР»РЅРµРЅРѕ"   
     }
     #foreach ($ServerName in $ServerNames){
     #    Invoke-Command -ComputerName $ServerName -ScriptBlock{
-    #        $Service = Get-WmiObject win32_service | Where-Object {$_.PathName -like "*service_update.exe*"} 
+    #        $Service = Get-WmiObject win32_service | Where-Object {$_.PathName -like "*$ServerName*"} 
     #        Stop-Service $Service.Name
     #        Start-Service $Service.Name
     #    } #scriptblock
@@ -30,13 +32,30 @@ function print_server_groups{
     [CmdletBinding()]
     param(
         [Parameter()]
-        $Server_groups_hashtable
+        $server_groups
     )
-    foreach ($group in $Server_groups_hashtable){
-        Write-Host $group.keys
+    
+    $counter
+    foreach ($group in $server_groups.GetEnumerator()){
+        $counter += 1
+        Write-Host "РќРѕРјРµСЂ РіСЂСѓРїРїС‹: $counter`nР“СЂСѓРїРїР°: $($group.Name)`nРҐРѕСЃС‚С‹: $($group.Value)`n"
+        $group_index[$counter] = $group.Name
+        
     }
 }
 
-#reload_service -Path "test" -ServerNames @(1,2,3)
-#Write-Host $conf.server_groups.Count
-print_server_groups -Server_groups_hashtable $conf.server_groups
+function pick_group{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        $server_groups
+    )
+    
+    $group_number = Read-Host "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РіСЂСѓРїРїС‹"
+    $server_groups[$group_index[[int]$group_number]]
+    
+}
+
+
+print_server_groups($server_groups)
+pick_group($server_groups)
