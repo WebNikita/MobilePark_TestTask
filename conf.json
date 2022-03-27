@@ -1,8 +1,8 @@
 {
-    "file_path": "C:\\Program Files (x86)\\Common Files\\ABBYY\\FineReader\\15\\Licensing\\NetworkLicenseServer.exe",
+    "file_path": "C:\\Program Files (x86)\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe",
     "server_groups":[
         {
-        "group_1":["shvora.n"]
+        "group_1":[".","."]
         }
     ]
 }
