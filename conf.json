@@ -1,9 +1,8 @@
 {
-    "file_path": "test",
+    "file_path": "C:\\Program Files (x86)\\Common Files\\ABBYY\\FineReader\\15\\Licensing\\NetworkLicenseServer.exe",
     "server_groups":[
         {
-        "group_1":["shvora.n_1","shvora.adm_1"],
-        "group_2":["shvora.n_2","shvora.adm_2"]
+        "group_1":["shvora.n"]
         }
     ]
 }

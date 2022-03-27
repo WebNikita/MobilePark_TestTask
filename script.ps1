@@ -22,18 +22,20 @@ function reload_service{
     )
     Write-Host '_________Начало процесса перезагрузки сервисов_________'
     foreach ($server_name in $server_names){
+        $path = ("$path" -split "\\")[-1]
+        $service = Get-WmiObject win32_service | Where-Object {$_.PathName -like "*$path*"}
         Write-Host "------------------"
         Write-Host "Подключение к серверу: $server_name"
         Write-Host "Получение статуса сервиса: $path"
-        Write-Host "Cтатус сервиса: Активен"
-        Write-Host "Перезапуск сервиса: Успех"
-        Write-Host "------------------"
-
-    #    Invoke-Command -ComputerName $server_name -ScriptBlock{
-    #        $Service = Get-WmiObject win32_service | Where-Object {$_.PathName -like "$path"} 
-    #        Stop-Service $Service.Name
-    #        Start-Service $Service.Name
-    #    } #scriptblock
+        Write-Host "Cтатус сервиса: $($service.State)"
+        #Write-Host "Перезапуск сервиса: Успех"
+        #Write-Host "------------------"
+        #Invoke-Command -ComputerName $server_name -ScriptBlock{
+        #    $Service = Get-WmiObject win32_service | Where-Object {$_.PathName -like "$path"}
+        #    $Service.Name
+            #Stop-Service $Service.Name
+            #Start-Service $Service.Name
+        #} #scriptblock
     }#foreach
 }
 
