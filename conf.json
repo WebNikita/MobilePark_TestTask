@@ -2,7 +2,12 @@
     "file_path": "C:\\Program Files (x86)\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe",
     "server_groups":[
         {
-        "group_1":[".","."]
+            "Name":"Group_1",
+            "Value": ["test_1_0","test_1_1"]
+        },
+        {
+            "Name":"Group_2",
+            "Value": ["test_2_0","test_2_1"]
         }
     ]
 }
